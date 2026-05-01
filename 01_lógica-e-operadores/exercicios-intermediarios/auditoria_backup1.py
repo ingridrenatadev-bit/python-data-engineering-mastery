@@ -1,27 +1,30 @@
 from datetime import datetime
 import sys
 
-num = input("Digite apenas o número do servidor (ex: 02): ")
 tentativas = 0
 
 #-------------- Bloco para validar o número do servidor --------------
 
 while tentativas < 3: #verifica se o número do servidor é válido, caso contrário, bloqueia o acesso após 3 tentativas
-    
+    num = input("Digite apenas o número do servidor (ex: 02): ")
+
     if num.isdigit(): # Verifica se são apenas números
-        servidor_final = f"servidor_{num}"
-        print(f"Conectado ao: {servidor_final}")
-        break
+        num_int = int(num)
+
+        if 1 < num_int <= 10:
+            servidor_final = f"servidor_{num_int:02d}"
+            print(f"Conectado ao: {servidor_final}")
+            break
+        else:
+            tentativas = tentativas + 1
+            print(f"Erro: O número do servidor deve estar entre 1 e 10. { 3 - tentativas} tentativas restantes.")
     else:
         tentativas = tentativas + 1
-        erro_restante = 3 - tentativas
-
-        if erro_restante > 1:
-            print(f"Erro: Digite apenas números! {erro_restante} tentativas restantes.")
+        print(f"Erro: Digite apenas números! { 3 - tentativas} tentativas restantes.")
     
-            if erro_restante == 3:
-                print("Acesso bloqueado. para desbloquear acesse o email em que enviamos para  j******ng@gmail.com")
-                sys.exit()
+    if tentativas == 3:
+        print("Acesso bloqueado. para desbloquear acesse o email em que enviamos para  j******ng@gmail.com")
+        sys.exit()
 
 #-------------- Bloco para validar o tamanho do arquivo de backup --------------
 while True: #
@@ -31,9 +34,11 @@ while True: #
     try:
         tamanho_float = float(tamanho_arquivo)
 
-        if tamanho_float < 0.5 or tamanho_float == 0 :
-            print("O backup é muito pequeno.")        
+        if tamanho_float >= 0.5:
+            print(f"Arquivo aceito: {tamanho_float}")    
             break
+        else:
+            print("O backup é muito pequeno.")        
 
     except ValueError:
         print("Erro: Digite um número válido para o tamanho do arquivo de backup.")
@@ -51,6 +56,8 @@ while True:
         if data_backup_formatada == data_today_formatada:
             print(f"Os backups são de hoje. Data: {data_today_formatada}")
             break
+        else:
+            print("Erro: As datas não estão corretas ou não é backup de hoje.")
     
     except ValueError:
         print("Erro: As datas não estão corretas ou não é backup de hoje.")
