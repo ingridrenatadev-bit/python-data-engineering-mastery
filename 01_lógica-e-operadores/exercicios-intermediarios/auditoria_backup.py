@@ -1,7 +1,7 @@
 from datetime import datetime
 
 num = input("Digite apenas o número do servidor (ex: 02): ")
-tamanho_arquivo = float(input("Digie o tamanho do arquivo de backup (em GB): "))
+tamanho_arquivo = float(input("Digite o tamanho do arquivo de backup (em GB): "))
 data_backup = input("Digite a data do backup (DD/MM/YYYY): ")
 data_today = input("Digite a data de hoje(DD/MM/YYYY): ")
 servidor_final = ""
